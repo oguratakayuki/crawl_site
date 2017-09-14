@@ -1,0 +1,29 @@
+h1 Listing pages
+
+table
+  thead
+    tr
+      th Site
+      th Path
+      th Active
+      th Redirect to
+      th
+      th
+      th
+
+  tbody
+    - @pages.each do |page|
+      tr
+        td = page.site_id
+        td = page.path
+        td = page.active
+        td = page.redirect_to
+        td = link_to 'Show', site_page_path(@site, page)
+        td = link_to 'Edit', edit_site_page_path(@site, page)
+        td = link_to 'Destroy', site_page_path(@site, page), data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Page', new_site_page_path(@site)
+'
+= link_to 'Crawl', crawl_site_pages_path

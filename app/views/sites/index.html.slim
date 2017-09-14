@@ -1,0 +1,26 @@
+h1 Listing sites
+
+table
+  thead
+    tr
+      th Domain
+      th Name
+      th Url
+      th
+      th
+      th
+
+  tbody
+    - @sites.each do |site|
+      tr
+        td = site.domain
+        td = site.name
+        td = site.url
+        td = link_to 'Show', site
+        td = link_to 'Edit', edit_site_path(site)
+        td = link_to 'Destroy', site, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Pages', site_pages_path(site)
+
+br
+
+= link_to 'New Site', new_site_path

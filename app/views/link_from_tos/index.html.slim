@@ -1,0 +1,25 @@
+h1 Listing link_from_tos
+
+table
+  thead
+    tr
+      th From page
+      th To page
+      th By redirection
+      th
+      th
+      th
+
+  tbody
+    - @link_from_tos.each do |link_from_to|
+      tr
+        td = link_from_to.from_page_id
+        td = link_from_to.to_page_id
+        td = link_from_to.by_redirection
+        td = link_to 'Show', link_from_to
+        td = link_to 'Edit', edit_link_from_to_path(link_from_to)
+        td = link_to 'Destroy', link_from_to, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Link from to', new_link_from_to_path

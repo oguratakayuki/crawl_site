@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong From page:
+  = @link_from_to.from_page_id
+p
+  strong To page:
+  = @link_from_to.to_page_id
+p
+  strong By redirection:
+  = @link_from_to.by_redirection
+
+= link_to 'Edit', edit_link_from_to_path(@link_from_to)
+'  |
+= link_to 'Back', link_from_tos_path

@@ -1,0 +1,18 @@
+= form_for @link_from_to do |f|
+  - if @link_from_to.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@link_from_to.errors.count, "error")} prohibited this link_from_to from being saved:"
+      ul
+        - @link_from_to.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :from_page_id
+    = f.number_field :from_page_id
+  .field
+    = f.label :to_page_id
+    = f.number_field :to_page_id
+  .field
+    = f.label :by_redirection
+    = f.check_box :by_redirection
+  .actions = f.submit

@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Domain:
+  = @site.domain
+p
+  strong Name:
+  = @site.name
+p
+  strong Url:
+  = @site.url
+
+= link_to 'Edit', edit_site_path(@site)
+'  |
+= link_to 'Back', sites_path
