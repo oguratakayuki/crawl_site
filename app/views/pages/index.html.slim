@@ -1,11 +1,32 @@
-h1 Listing pages
+h1 
+  | #{@site.name} ページ一覧
+'
+- if @site.pages.by_device_type('pc').blank?
+  = link_to 'Crawl PC', crawl_site_pages_path({device: 'pc'}), class: 'btn btn-warning'
+  '
+- if @site.pages.by_device_type('mobile').blank?
+  = link_to 'Crawl MOBILE', crawl_site_pages_path({device: 'mobile'}), class: 'btn btn-warning'
+  '
+= link_to 'PC', site_pages_path({device: 'pc'}), class: 'btn btn-default'
+'
+= link_to 'MOBILE', site_pages_path({device: 'mobile'}), class: 'btn btn-default'
+'
+= link_to 'ALL', site_pages_path({device: ''}), class: 'btn btn-default'
+'
+= link_to 'download csv', download_site_pages_path(@site, {device_type: params['device']}), class: 'btn btn-default'
 
-table
+table.table.table-striped.table-hover
   thead
     tr
+      th id
       th Site
+      th device
       th Path
       th Active
+      th link数
+      th StatusCode
+      th title
+      th h1
       th Redirect to
       th
       th
@@ -13,10 +34,21 @@ table
 
   tbody
     - @pages.each do |page|
-      tr
+      - css_class = ''
+      - if page.status_code.in?(%w(300 301 302))
+        - css_class = 'warning'
+      - elsif  page.status_code.in?(%w(404 422 403))
+        - css_class = 'danger'
+      tr[class="#{css_class}"]
+        td = page.id
         td = page.site_id
-        td = page.path
+        td = page.device_type
+        td = page.full_path
         td = page.active
+        td = page.froms.size
+        td = page.status_code
+        td = page.title
+        td = page.h1
         td = page.redirect_to
         td = link_to 'Show', site_page_path(@site, page)
         td = link_to 'Edit', edit_site_page_path(@site, page)
@@ -24,6 +56,3 @@ table
 
 br
 
-= link_to 'New Page', new_site_page_path(@site)
-'
-= link_to 'Crawl', crawl_site_pages_path

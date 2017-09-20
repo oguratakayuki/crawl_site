@@ -1,15 +1,26 @@
 class SitesController < ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
 
-
   def crawl
     redirect_to '/site_pages', notice: 'Site page was successfully created.'
+  end
+
+  def detect
+    @not_used_files = []
+    inputs.each do |file_path|
+      if Site.primal.pages.where(path: file_path).active.blank?
+        #不要コンテンツ
+        @not_used_files << file_path
+      else
+        #普通に使っているので消せない
+      end
+    end
   end
 
   # GET /sites
   # GET /sites.json
   def index
-    @sites = Site.all
+    @sites = Site.all.order(:id)
   end
 
   # GET /sites/1

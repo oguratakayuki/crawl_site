@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913092306) do
+ActiveRecord::Schema.define(version: 20170919084206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170913092306) do
     t.integer  "redirected_page_id"
     t.boolean  "empty_contents"
     t.string   "status_code"
+    t.integer  "size"
+    t.string   "device_type"
   end
 
   create_table "sites", force: :cascade do |t|

@@ -3,13 +3,23 @@ class PagesController < ApplicationController
   before_action :set_site
 
   def crawl
-    ret = @site.crawl!
-    abort ret
+    ret = @site.crawl!(params[:device])
+    redirect_to site_pages_path(@site)
   end
+
+  def search
+    @pages = @site.pages
+  end
+
+  def download
+    @pages = @site.pages
+    send_data(@site.export(params[:device_type]), filename: "#{@site.name}-#{params[:device_type].to_s}-#{Date.today}.csv")
+  end
+
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = @site.pages.by_device_type(params['device']).order(:path)
   end
 
   # GET /pages/1
