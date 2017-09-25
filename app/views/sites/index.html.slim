@@ -25,9 +25,10 @@ table.table.table-striped.table-hover
 
 br
 
-= 
-= form_tag 'detect_unuse_sites_path', method: 'post', multipart: true do
-  = file_field :fileupload, :file
-  = submit_tag 'Send file'
+.jumbotron
+  h3 不要コンテンツ検索
+  = form_tag detect_unuse_sites_path, method: 'post', multipart: true do
+    = file_field :fileupload, :file
+    = submit_tag 'Send file'
 
 = link_to 'New Site', new_site_path

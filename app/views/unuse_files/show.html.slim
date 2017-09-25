@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Path:
+  = @unuse_file.path
+
+= link_to 'Edit', edit_unuse_file_path(@unuse_file)
+'  |
+= link_to 'Back', unuse_files_path

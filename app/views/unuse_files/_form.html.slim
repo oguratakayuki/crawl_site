@@ -1,0 +1,12 @@
+= form_for @unuse_file do |f|
+  - if @unuse_file.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@unuse_file.errors.count, "error")} prohibited this unuse_file from being saved:"
+      ul
+        - @unuse_file.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :path
+    = f.text_field :path
+  .actions = f.submit

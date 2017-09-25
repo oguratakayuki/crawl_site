@@ -1,0 +1,13 @@
+h1 
+  | 不要ページ一覧
+'
+table.table.table-striped.table-hover
+  thead
+    tr
+      th id
+  tbody
+    - @unuse_files.each do |file|
+      tr
+        td = file
+br
+

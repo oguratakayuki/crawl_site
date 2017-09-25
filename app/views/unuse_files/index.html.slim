@@ -1,0 +1,31 @@
+h1 Listing unuse_files
+
+= link_to 'check all', check_unuse_files_path({device: 'pc'}), class: 'btn btn-default'
+'
+= link_to 'download csv', download_unuse_files_path, class: 'btn btn-default'
+
+table.table.table-striped.table-hover
+  thead
+    tr
+      th Id
+      th Path
+      th site
+      th devie_type
+      th
+      th
+      th
+
+  tbody
+    - @unuse_files.each do |unuse_file|
+      tr
+        td = unuse_file.id
+        td = unuse_file.path
+        td = unuse_file.active_site.try(:domain)
+        td = unuse_file.active_device_type
+        td = link_to 'Show', unuse_file
+        td = link_to 'Edit', edit_unuse_file_path(unuse_file)
+        td = link_to 'Destroy', unuse_file, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Unuse file', new_unuse_file_path

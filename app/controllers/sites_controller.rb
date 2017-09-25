@@ -5,14 +5,14 @@ class SitesController < ApplicationController
     redirect_to '/site_pages', notice: 'Site page was successfully created.'
   end
 
-  def detect
-    @not_used_files = []
-    inputs.each do |file_path|
-      if Site.primal.pages.where(path: file_path).active.blank?
+  def detect_unuse
+    uploaded_file =  params['fileupload']['file']
+    inputs = uploaded_file.read
+    @unuse_files = []
+    inputs.each_line do |file_path|
+      if Page.of_primal_sites.active.where(path: file_path.chomp).blank?
         #不要コンテンツ
-        @not_used_files << file_path
-      else
-        #普通に使っているので消せない
+        UnuseFile.find_or_create_by!(path: file_path.chomp)
       end
     end
   end

@@ -4,6 +4,28 @@ require 'csv'
 
 class Site < ApplicationRecord
   has_many :pages
+  scope :primal,  -> { where(id: %w(1 2 3 4)) }
+  def deletable_contents?(path, device)
+    path = path.chomp
+    sleep 1
+    uri = self.url + path
+    conn = Faraday::Connection.new(:url =>URI.encode( uri))
+    conn.headers[:user_agent] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1' if device == 'mobile'
+    begin
+      res = conn.get URI.encode(path)
+    rescue Faraday::ConnectionFailed
+      abort path
+    end
+    if res.body.size == 0
+      return true
+    end
+    if res.status != 200
+      return true
+    end
+    false
+  end
+
+
   def crawl!(device)
     save_and_visit_links('/', nil, layer=0, device, by_redirection=false)
   end

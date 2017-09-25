@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919084206) do
+ActiveRecord::Schema.define(version: 20170920084221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20170919084206) do
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "unuse_files", force: :cascade do |t|
+    t.string   "path"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "size"
+    t.string   "status_code"
+    t.integer  "active_site_id"
+    t.string   "active_device_type"
   end
 
 end
